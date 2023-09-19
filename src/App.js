@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
   const [data, setData] = useState({});
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("colombo");
   const [loading, setLoading] = useState(false);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=895284fb2d2c50a520ea537456963d9c`;
@@ -27,6 +27,23 @@ function App() {
       setLocation("");
     }
   };
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        setData({});
+        setLoading(false);
+        alert("Location not found. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const getIconUrl = (icon) => `http://openweathermap.org/img/wn/${icon}.png`;
 
