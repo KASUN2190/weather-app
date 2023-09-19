@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { LiaSearchLocationSolid } from "react-icons/lia";
 
 function App() {
   const [data, setData] = useState({});
@@ -50,13 +51,16 @@ function App() {
   return (
     <div className="app">
       <div className="search">
-        <input
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          onKeyDown={searchLocation}
-          placeholder="Enter Location"
-          type="text"
-        />
+        <div className="input-icon">
+          <LiaSearchLocationSolid className="search-icon" />
+          <input
+            value={location}
+            onChange={(event) => setLocation(event.target.value)}
+            onKeyDown={searchLocation}
+            placeholder="Enter Location"
+            type="text"
+          />
+        </div>
       </div>
       <div className="container">
         {loading && <div className="loading">Loading...</div>}{" "}
